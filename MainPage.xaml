@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimeLecture.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Label
+                x:Name="TimerLabel"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="56"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center" />
+            <Label
+                x:Name="TitleLabel"
+                FontSize="18"
+                HorizontalOptions="Center">
+            </Label>
+
+            <Button x:Name="EventPageButton" BorderWidth="0" BackgroundColor="Transparent"  Text="Смахни вниз" Clicked="EventPageButton_Clicked"/>
+        </VerticalStackLayout>
+        <ScrollView.GestureRecognizers>
+            <SwipeGestureRecognizer Direction="Up" Swiped="SwipeGestureRecognizer_Swiped"/>
+        </ScrollView.GestureRecognizers>
+    </ScrollView>
+
+</ContentPage>
