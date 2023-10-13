@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Model/testAcademEvent.testcs
+/Resources/AppIcon/appicon_alt.svg.sketch
+/.meteor/generated
