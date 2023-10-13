@@ -1,4 +1,162 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="456" height="456" viewBox="0 0 456 456" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="0" width="456" height="456" fill="#512BD4" />
+<svg
+   width="456"
+   height="456"
+   version="1.2"
+   id="svg7"
+   sodipodi:docname="appicon.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="237.58788"
+     inkscape:cy="204.35386"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg7" />
+  <defs
+     id="defs1">
+    <path
+       d="M256 0L256 0L256 256L0 256L0 0L256 0Z"
+       id="path_1" />
+    <path
+       d="M53 181.334L53.0008 181.336C41.3721 181.514 32 190.995 32 202.667C32 214.449 41.5513 224 53.3333 224L170.533 224C170.578 224 170.622 224 170.667 224C182.449 224 192 214.45 192 202.667L192 64L208 64C216.838 64 224 56.8378 224 48C224 39.1622 216.838 32 208 32L74.6667 32C62.8846 32 53.3333 41.5513 53.3333 53.3334L53 181.334L53 181.334Z"
+       id="path_2" />
+    <clipPath
+       id="clip_1">
+      <use
+         xlink:href="#path_1"
+         clip-rule="evenodd"
+         fill-rule="evenodd"
+         id="use1" />
+    </clipPath>
+  </defs>
+  <rect
+     style="display:none;fill:#1c2422;stroke-width:1.23678"
+     id="rect8"
+     width="280.66037"
+     height="277.85104"
+     x="88.329605"
+     y="90.692825"
+     rx="85.880722"
+     ry="85.880722" />
+  <g
+     id="g7"
+     clip-path="url(#clip_1)"
+     transform="matrix(0.53381435,0,0,0.53381435,159.36471,158.91862)"
+     style="display:inline">
+    <path
+       d="M 256,0 V 0 256 H 0 V 0 Z"
+       id="appicon_alt"
+       fill="none"
+       stroke="none" />
+    <g
+       id="Вектор">
+      <use
+         xlink:href="#path_2"
+         fill="none"
+         stroke="#ffffff"
+         stroke-width="54"
+         id="use2" />
+      <use
+         stroke="none"
+         fill="#a3cfc4"
+         xlink:href="#path_2"
+         fill-rule="evenodd"
+         id="use3" />
+    </g>
+    <g
+       id="Group"
+       transform="translate(32.000004,32.000004)">
+      <path
+         d="M 96,149.333 H 42.6667 C 30.8846,149.333 21.3333,139.782 21.3333,128 V 21.3333 C 21.3333,9.55126 30.8846,0 42.6667,0 H 138.667 C 150.449,0 160,9.55126 160,21.3333 V 170.667 c 0,11.782 -9.551,21.333 -21.333,21.333 -11.783,0 -21.334,-9.551 -21.334,-21.333 0,-11.783 -9.551,-21.334 -21.333,-21.334 z"
+         id="Фигура"
+         fill="#256a58"
+         fill-opacity="0.1"
+         stroke="none" />
+      <path
+         d="M 170.667,0 H 64 V 0 C 43.8867,0 33.8301,0 27.5818,6.24843 21.3333,12.4967 21.3333,22.5534 21.3333,42.6667 V 80 149.333"
+         id="path3"
+         fill="none"
+         stroke="#256a58"
+         stroke-width="21"
+         stroke-linecap="round"
+         stroke-linejoin="round" />
+      <path
+         d="m 117.333,149.333 v 21.334 c 0,11.782 9.551,21.333 21.334,21.333 v 0 C 150.449,192 160,182.449 160,170.667 V 64 16 c 0,-8.83658 7.164,-16 16,-16 v 0 c 8.836,0 16,7.16342 16,16 v 0 c 0,8.8366 -7.164,16 -16,16 h -10.667"
+         id="path4"
+         fill="none"
+         stroke="#256a58"
+         stroke-width="21"
+         stroke-linecap="round"
+         stroke-linejoin="round" />
+      <path
+         d="M 138.667,192 H 21.3333 C 9.55126,192 0,182.449 0,170.667 v 0 c 0,-11.783 9.55126,-21.334 21.3333,-21.334 h 95.9997"
+         id="path5"
+         fill="none"
+         stroke="#256a58"
+         stroke-width="21"
+         stroke-linecap="round"
+         stroke-linejoin="round" />
+      <g
+         id="Группа"
+         transform="translate(64.000015,32.000004)">
+        <path
+           d="M 0,10.6667 H 53.3333"
+           id="Линия"
+           fill="none"
+           fill-rule="evenodd"
+           stroke="#256a58"
+           stroke-width="21"
+           stroke-linecap="round"
+           stroke-linejoin="round" />
+      </g>
+      <g
+         id="g6"
+         transform="translate(64.000015,74.66667)">
+        <path
+           d="M 0,10.6667 H 53.3333"
+           id="path6"
+           fill="none"
+           fill-rule="evenodd"
+           stroke="#256a58"
+           stroke-width="21"
+           stroke-linecap="round"
+           stroke-linejoin="round" />
+      </g>
+    </g>
+  </g>
+  <path
+     sodipodi:type="star"
+     style="display:none;fill:#ffff00;stroke-width:0.844"
+     id="path1"
+     inkscape:flatsided="false"
+     sodipodi:sides="5"
+     sodipodi:cx="0"
+     sodipodi:cy="0"
+     sodipodi:r1="619.96289"
+     sodipodi:r2="309.98145"
+     sodipodi:arg1="0.74435081"
+     sodipodi:arg2="1.3726693"
+     inkscape:rounded="0"
+     inkscape:randomized="0"
+     d="M 455.99999,420.02142 61.014685,303.91727 -258.55236,563.47552 -270.18792,151.94401 -615.79414,-71.774398 -228,-210.0107 -122.02934,-607.83454 129.27617,-281.73777 540.37586,-303.88801 307.89707,35.887187 Z"
+     inkscape:transform-center-x="8.7626375"
+     inkscape:transform-center-y="-4.2270025"
+     transform="matrix(0.23237434,0,0,0.19058142,232.54792,231.35178)" />
 </svg>
