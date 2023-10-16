@@ -1,4 +1,10 @@
-﻿namespace TimeLecture
+﻿using Microsoft.Maui.Platform;
+using Plugin.LocalNotification;
+using Plugin.LocalNotification.AndroidOption;
+using Plugin.LocalNotification.EventArgs;
+using System.Security.Principal;
+
+namespace TimeLecture
 {
     public partial class MainPage : ContentPage
     {
@@ -6,10 +12,32 @@
 
         IDispatcherTimer timer;
         List<Lesson> lessons;
+        NotificationRequest notification;
+        Lesson currientLesson;
+        private readonly INotificationService _notificationService;
+        string titleText = "Осталось до начала пары";
+        bool isBreak;
 
         public MainPage()
         {
             InitializeComponent();
+
+            // Создаём уведомление
+            notification = new NotificationRequest()
+            {
+                NotificationId = 1,
+                Title = titleText,
+                Description = $"Осталось {timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}",
+                CategoryType = NotificationCategoryType.Progress,
+                Silent = true,
+                //Time = DateTime.Now + timeSpan
+                Android = new AndroidOptions()
+                {
+                    IsProgressBarIndeterminate = isBreak,
+                    ProgressBarMax = 90 * 60,
+                    ProgressBarProgress = (int)(timeSpan.TotalSeconds)
+                }
+            };
 
             lessons = new List<Lesson>()
             {
@@ -26,130 +54,66 @@
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Start();
 
-            timer.Tick += (s, e) =>
+            timer.Tick += Timer_Tick;
+            
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            currientLesson = GetLastLesson(DateTime.Now, lessons, out isBreak);
+            var time = DateTime.Now.TimeOfDay;
+            titleText = $"До начала 1-й пары";
+            if (currientLesson is null)
             {
-                // Получаем количество пар, которые уже были начаты
-                //int amount = GetLessonAt(DateTime.Now, lessons);
-                bool isBreak;
-                var lesson = GetLastLesson(DateTime.Now, lessons, out isBreak);
-
-                var time = DateTime.Now.TimeOfDay;
-                string titleText = "Осталось до начала пары (0)";
-
-                titleText = $"До начала 1-й пары";
-                if(lesson is null)
+                timeSpan = (lessons[0].TimeSpanStart - time).Duration();
+            }
+            else
+            {
+                if (currientLesson == lessons.Last() && isBreak)
                 {
-                    timeSpan = (lessons[0].TimeSpanStart - time).Duration();
+                    // Время до начала следующей пары следующего дня
+                    DateTime tomorrow = DateTime.Today.AddDays(1);
+                    timeSpan = lessons[0].TimeSpanStart + (tomorrow - DateTime.Now).Duration();
                 }
                 else
                 {
-                    if( lesson == lessons.Last() && isBreak)
+                    if (isBreak)
                     {
-                        // Время до начала следующей пары следующего дня
-                        DateTime tomorrow = DateTime.Today.AddDays(1);
-                        timeSpan = lessons[0].TimeSpanStart + (tomorrow - DateTime.Now).Duration();
+                        var nextLesson = lessons[lessons.IndexOf(currientLesson) + 1];
+                        timeSpan = (nextLesson.TimeSpanStart - DateTime.Now.TimeOfDay).Duration();
+                        titleText = $"До начала следующей пары";
                     }
                     else
                     {
-                        if (isBreak)
-                        {
-                            var nextLesson = lessons[lessons.IndexOf(lesson) + 1];
-                            timeSpan = (nextLesson.TimeSpanStart - DateTime.Now.TimeOfDay).Duration();
-                            titleText = $"До начала следующей пары";
-                        }
-                        else
-                        {
-                            timeSpan = (lesson.TimeSpanEnd - DateTime.Now.TimeOfDay).Duration();
-                            titleText = $"До конца пары";
-                        }
+                        timeSpan = (currientLesson.TimeSpanEnd - DateTime.Now.TimeOfDay).Duration();
+                        titleText = $"До конца пары";
                     }
                 }
+            }
 
-                //if (time < lessons[0].TimeSpanStart)
-                //{
-                //    // 1) Сейчас перемена. Перемена до начала всех занятий
-                //    timeSpan = (lessons[0].TimeSpanStart - DateTime.Now.TimeOfDay).Duration();
-                //    titleText = $"До начала 1-й пары (1)";
-                //}
-                //else
-                //{
-                //    if (DateTime.Now.TimeOfDay > lessons[index].TimeSpanEnd) // Сейчас > Конец данного занятия
-                //    {
-                //        if (index + 1 >= lessons.Count())
-                //        {
-                //            // 2) Сейчас перемена. Между парами
-                //            var pairEndTime = lessons[index].TimeSpanEnd;
-                //            timeSpan = (pairEndTime - DateTime.Now.TimeOfDay).Duration();
-                //            titleText = $"До начала пары (2)";
-                //        }
-                //        else
-                //        {
-                //            // 3) Сейчас перемена. Перемена после всех занятий
-                //            DateTime tomorrow = DateTime.Today.AddDays(1);
-                //            timeSpan = lessons[0].TimeSpanStart + (tomorrow - DateTime.Now).Duration();
-                //            titleText = $"До начала 1-й пары (3)";
-                //        }
+            // Устанавливаем текст
+            TimerLabel.BindingContext = timeSpan;
+            TitleLabel.Text = titleText;
 
-                //    }
-                //    else
-                //    {
-                //        // 4) Сейчас занятие.
-                //        timeSpan = (lessons[index + 1].TimeSpanStart - DateTime.Now.TimeOfDay).Duration();
-                //        titleText = $"До конца пары (4)";
-                //    }
-                //}
+            // Отображаем уведомление
+            notification.Description = $"Осталось {timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
+            notification.Android.ProgressBarProgress = (int)timeSpan.TotalSeconds;
+            LocalNotificationCenter.Current.Show(notification);
 
-
-                //if (index >= 0)
-                //{
-                //    if (DateTime.Now.TimeOfDay <= lessons[index].TimeSpanEnd) // 
-                //    {
-                //        var pairEndTime = lessons[index].TimeSpanEnd;
-                //        timeSpan = (pairEndTime - DateTime.Now.TimeOfDay).Duration();
-                //    }
-                //    else
-                //    {
-
-                //        timeSpan = (lessons[index + 1].TimeSpanStart - DateTime.Now.TimeOfDay).Duration();
-                //        titleText = $"До начала следующей пары";
-                //    }
-                //}
-                //else
-                //{
-                //    titleText = $"До начала первой пары";
-                //    if (DateTime.Now.TimeOfDay < lessons[0].TimeSpanStart)
-                //    {
-                //        timeSpan = (lessons[0].TimeSpanStart - DateTime.Now.TimeOfDay).Duration();
-                //        titleText = $"До начала 1-й пары";
-                //    }
-                //    else
-                //    {
-                //        // Время до начала следующей пары следующего дня
-                //        DateTime tomorrow = DateTime.Today.AddDays(1);
-                //        timeSpan = lessons[0].TimeSpanStart + (tomorrow - DateTime.Now).Duration();
-                //    }
-                //}
-
-                // Устанавливаем текст
-                TimerLabel.BindingContext = timeSpan;
-                TitleLabel.Text = titleText;
-
-            };
-        } 
-
+        }
 
         public Lesson GetLastLesson(DateTime dateTime, List<Lesson> lessons, out bool isBreak)
         {
             isBreak = true;
             var time = dateTime.TimeOfDay;
-            int lessonStarted = lessons.Count;
-            int lessonFinished = lessons.Count;
+            int lessonStarted = 0;
+            int lessonFinished = 0;
             int total = lessons.Count;
             for (int i = 0; i < total; i++)
             {
-                if (dateTime.TimeOfDay <= lessons[i].TimeSpanStart)
+                if (dateTime.TimeOfDay >= lessons[i].TimeSpanStart)
                     lessonStarted = i + 1;
-                if (time <= lessons[i].TimeSpanEnd)
+                if (time >= lessons[i].TimeSpanEnd)
                     lessonFinished = i + 1;
             }
             // Занятия ещё не начались
@@ -161,26 +125,12 @@
                 return lessons[total - 1];
 
             // Сейчас перемена
-            if (lessonStarted != lessonFinished)
-                return lessons[lessonStarted];
+            if (lessonStarted == lessonFinished)
+                return lessons[lessonStarted - 1];
 
             isBreak = false;
             // Сейчас идёт занятие
-            return lessons[lessonStarted];
-
-            //var timeSpanEndFirst = lessons[0].TimeSpanEnd;
-            //var timeSpanEndLast = lessons[lessons.Count - 1].TimeSpanEnd;
-
-            //if(currentTime > timeSpanEndFirst || currentTime < timeSpanEndLast)
-            //    for (int i = 0; i < lessons.Count - 1; i++)
-            //    {
-            //        if (currentTime >= lessons[i].TimeSpanStart &&
-            //            (i == lessons.Count - 1 && currentTime < lessons[i + 1].TimeSpanStart))
-            //        {
-            //            return i;
-            //        }
-            //    }
-            //return -1;
+            return lessons[lessonStarted - 1];
         }
     }
 }
